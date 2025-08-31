@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TxType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum Category {
+  INCOME
+  FOOD
+  GROCERY
+  TRANSPORT
+  GAS
+  SUBSCRIPTION
+  ENTERTAINMENT
+  ELECTRONICS
+  SHOPPING
+  HEALTH
+  UTILITIES
+  RENT
+  TRAVEL
+  OTHER
+}
+
+model User {
+  id         String        @id @default(cuid())
+  email      String        @unique
+  name       String?
+  imageUrl   String?
+  googleId   String        @unique
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  txns       Transaction[]
+}
+
+model Transaction {
+  id           String     @id @default(cuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  type         TxType
+  amount       Decimal
+  currency     String     @default("USD")
+  category     Category   @default(OTHER)
+  description  String
+  merchant     String?
+  sourceText   String?    // original NL input
+  aiConfidence Float?     // 0-1
+  aiMeta       Json?
+  occurredAt   DateTime   @default(now())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([userId, occurredAt])
+  @@index([userId, category])
+}
