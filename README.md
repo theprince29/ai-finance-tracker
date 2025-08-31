@@ -3,6 +3,9 @@
 A modern **Next.js 14** landing page for a finance tracking app.
 Built with **Tailwind CSS, shadcn/ui, Radix UI, and Framer Motion** for a beautiful, responsive, and performant user experience.
 
+<img width="1898" height="910" alt="image" src="https://github.com/user-attachments/assets/b8d273c0-a642-44a4-9d66-b4e6dcffc61a" />
+
+
 ##  Features
 
 * **Next.js 14 + App Router** – SEO-friendly, fast rendering
