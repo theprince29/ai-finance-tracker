@@ -22,7 +22,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import { Trash2, Pencil, Filter, LogOut, Link } from "lucide-react";
+import { Trash2, Pencil, Filter} from "lucide-react";
 import {
   ResponsiveContainer,
   PieChart,
@@ -239,10 +239,10 @@ export default function DashboardPage() {
     );
   };
 
-  const signOut = () => {
-    localStorage.removeItem("mockUser");
-    window.location.href = "/";
-  };
+  // const signOut = () => {
+  //   localStorage.removeItem("mockUser");
+  //   window.location.href = "/";
+  // };
 
   const categories = useMemo(
     () => ["all", ...Object.keys(CATEGORY_COLORS)],

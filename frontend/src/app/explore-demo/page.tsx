@@ -22,19 +22,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import { Trash2, Pencil, Filter, LogOut, Link } from "lucide-react";
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip as ReTooltip,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
+import { Trash2, Pencil, Filter } from "lucide-react";
 import Header from "@/components/common/header";
 
 type TxType = "income" | "expense";
@@ -156,40 +144,40 @@ export default function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const totals = useMemo(() => {
-    const income = transactions
-      .filter((t) => t.type === "income")
-      .reduce((s, t) => s + Math.abs(t.amount), 0);
-    const expenses = transactions
-      .filter((t) => t.type === "expense")
-      .reduce((s, t) => s + Math.abs(t.amount), 0);
-    return { income, expenses, savings: income - expenses };
-  }, [transactions]);
+  // const totals = useMemo(() => {
+  //   const income = transactions
+  //     .filter((t) => t.type === "income")
+  //     .reduce((s, t) => s + Math.abs(t.amount), 0);
+  //   const expenses = transactions
+  //     .filter((t) => t.type === "expense")
+  //     .reduce((s, t) => s + Math.abs(t.amount), 0);
+  //   return { income, expenses, savings: income - expenses };
+  // }, [transactions]);
 
-  const byCategory = useMemo(() => {
-    const map: Record<string, number> = {};
-    for (const t of transactions.filter((t) => t.type === "expense")) {
-      map[t.category] = (map[t.category] ?? 0) + Math.abs(t.amount);
-    }
-    return Object.entries(map).map(([name, value]) => ({ name, value }));
-  }, [transactions]);
+  // const byCategory = useMemo(() => {
+  //   const map: Record<string, number> = {};
+  //   for (const t of transactions.filter((t) => t.type === "expense")) {
+  //     map[t.category] = (map[t.category] ?? 0) + Math.abs(t.amount);
+  //   }
+  //   return Object.entries(map).map(([name, value]) => ({ name, value }));
+  // }, [transactions]);
 
-  const byMonth = useMemo(() => {
-    const map: Record<string, { income: number; expense: number }> = {};
-    for (const t of transactions) {
-      const d = new Date(t.date);
-      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
-        2,
-        "0"
-      )}`;
-      if (!map[key]) map[key] = { income: 0, expense: 0 };
-      if (t.type === "income") map[key].income += Math.abs(t.amount);
-      else map[key].expense += Math.abs(t.amount);
-    }
-    return Object.entries(map)
-      .sort(([a], [b]) => (a > b ? 1 : -1))
-      .map(([month, vals]) => ({ month, ...vals }));
-  }, [transactions]);
+  // const byMonth = useMemo(() => {
+  //   const map: Record<string, { income: number; expense: number }> = {};
+  //   for (const t of transactions) {
+  //     const d = new Date(t.date);
+  //     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+  //       2,
+  //       "0"
+  //     )}`;
+  //     if (!map[key]) map[key] = { income: 0, expense: 0 };
+  //     if (t.type === "income") map[key].income += Math.abs(t.amount);
+  //     else map[key].expense += Math.abs(t.amount);
+  //   }
+  //   return Object.entries(map)
+  //     .sort(([a], [b]) => (a > b ? 1 : -1))
+  //     .map(([month, vals]) => ({ month, ...vals }));
+  // }, [transactions]);
 
   const filtered = useMemo(() => {
     return transactions
@@ -240,10 +228,10 @@ export default function DashboardPage() {
     );
   };
 
-  const signOut = () => {
-    localStorage.removeItem("mockUser");
-    window.location.href = "/";
-  };
+  // const signOut = () => {
+  //   localStorage.removeItem("mockUser");
+  //   window.location.href = "/";
+  // };
 
   const categories = useMemo(
     () => ["all", ...Object.keys(CATEGORY_COLORS)],

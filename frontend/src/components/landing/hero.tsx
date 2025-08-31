@@ -84,7 +84,7 @@ export default function Hero() {
                 <div className="text-xs text-muted-foreground">Natural language input</div>
                 <div className="mt-2 rounded-md border bg-muted/50 p-3 font-mono text-sm text-emerald-600 dark:text-emerald-400">
                   <TypingAnimation startOnView={true} className="text-sm">
-                    "Bought Samsung watch for $250"
+                    Bought Samsung watch for $250
                   </TypingAnimation>
                 </div>
               </div>

@@ -52,7 +52,7 @@ export default function DemoSection() {
               <div>
                 <div className="text-xs text-muted-foreground">Quick add</div>
                 <div className="mt-2 rounded-md border bg-muted/50 p-2 font-mono text-sm text-emerald-600 dark:text-emerald-400">
-                  "Lunch at subway $12"
+                  {' "Lunch at subway $12" '}
                 </div>
               </div>
 
