@@ -2,7 +2,20 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import api from '../lib/api';
 
-const useAuthStore = create(
+interface User {
+  id: string;
+  email: string;
+}
+
+interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  token: string | null;
+  login: (code: string) => Promise<void>;
+  logout: () => Promise<void>;
+  fetchProfile: () => Promise<void>;
+}
+const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
