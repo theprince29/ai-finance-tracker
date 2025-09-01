@@ -5,8 +5,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import GoogleSignInButton from "@/components/landing/google-signin-button"
 import { NumberTicker } from "@/components/magicui/number-ticker"
+import GotoDashboard from "./gotodashboard"
+import useAuthStore from "@/store/useAuthstore"
 
 export default function CTASection() {
+  const hasUser = useAuthStore((state:any) => state.isAuthenticated)
+
   return (
     <section id="cta" className="relative py-16">
       {/* Background gradient */}
@@ -78,7 +82,7 @@ export default function CTASection() {
           viewport={{ once: true }}
         >
           <motion.div whileHover={{ scale: 1.05 }}>
-            <GoogleSignInButton />
+            {hasUser ? <GotoDashboard /> : <GoogleSignInButton />}
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }}>
             <Button asChild variant="outline">

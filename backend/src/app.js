@@ -9,7 +9,7 @@ import analyticsRoutes from "./routes/analytics.js";
 const app = express();
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: process.env.CLIENT_URL || "http://localhost:3000",
   credentials: true,
 }));
 app.use(express.json());
@@ -20,16 +20,13 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/health", (req, res) => {
   res.json({ status: "healthy" });
 });
 
-//not found
-app.use((req, res) => {
-  res.status(404).json({ error: "Not found" });
-});
+
 
 export default app;

@@ -6,8 +6,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { TypingAnimation } from "@/components/magicui/typing-animation"
 import GoogleSignInButton from "@/components/landing/google-signin-button"
+import useAuthStore from "@/store/useAuthstore"
+import { useRouter } from "next/navigation"
+import GotoDashboard from "./gotodashboard"
+
 
 export default function Hero() {
+  const hasUser = useAuthStore((state:any) => state.isAuthenticated)
   return (
     <section className="relative overflow-hidden h-screen" aria-label="Hero">
       {/* Subtle gradient + blurred blobs */}
@@ -53,9 +58,9 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.6 }}
           >
-            <GoogleSignInButton />
+            {hasUser ? <GotoDashboard /> : <GoogleSignInButton />}
             <Button asChild variant="outline">
-              <Link href="/finance">Explore demo</Link>
+              <Link href="/explore-demo">Explore demo</Link>
             </Button>
           </motion.div>
 

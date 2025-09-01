@@ -2,27 +2,40 @@
 
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import useAuthStore from "@/store/useAuthstore";
+import { useGoogleLogin } from '@react-oauth/google';
+
+
+
 
 export default function GoogleSignInButton() {
-  const router = useRouter()
+  const router = useRouter();
+  const login = useAuthStore((state: any) => state.login); // Access login function from Zustand store
 
-  function handleSignIn() {
-    // Mock Google sign-in for frontend-only demo
-    localStorage.setItem(
-      "mockUser",
-      JSON.stringify({
-        id: "demo-user",
-        name: "Demo User",
-        provider: "google",
-        signedInAt: new Date().toISOString(),
-      }),
-    )
-    router.push("/finance")
-  }
+  
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      try {
+        // const { credential } = tokenResponse;  // Now credential should be recognized
+        if (codeResponse) {
+          await login(codeResponse);
+          router.push("/finance");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  },
+    onError: (error) => {
+      console.error("Google login failed:", error);
+    }
+    ,
+    flow: "auth-code",
+  });
+
 
   return (
     <Button
-      onClick={handleSignIn}
+      onClick={() => googleLogin()}
       aria-label="Sign in with Google"
       className="group relative inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
     >
