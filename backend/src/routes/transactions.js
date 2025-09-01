@@ -7,18 +7,19 @@ import { createTxnSchema, parseSchema } from "../utils/validators.js";
 const router = express.Router();
 
 // POST /api/transactions/parse
-router.post("/parse", authRequired, async (req, res) => {
+router.post("/parse",  async (req, res) => {
   try {
     const { text } = parseSchema.parse(req.body);
     const parsed = await parseTransaction(text);
+    console.log("Parsed transaction:", parsed);
 
     res.json({
       success: true,
       parsed: {
-        amount: parsed.amount,
-        category: parsed.category,
-        description: parsed.description,
-        confidence: parsed.confidence ?? 0.8,
+        amount: parsed.data.amount,
+        category: parsed.data.category,
+        description: parsed.data.description,
+        confidence: parsed.data.confidence ?? 0.8,
       },
     });
   } catch (err) {
