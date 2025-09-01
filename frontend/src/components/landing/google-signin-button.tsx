@@ -10,13 +10,13 @@ import { useGoogleLogin } from '@react-oauth/google';
 
 export default function GoogleSignInButton() {
   const router = useRouter();
-  const login = useAuthStore((state: any) => state.login); // Access login function from Zustand store
+  const login = useAuthStore((state:any) => state.login);
 
   
   const googleLogin = useGoogleLogin({
     onSuccess: async (codeResponse) => {
       try {
-        // const { credential } = tokenResponse;  // Now credential should be recognized
+        
         if (codeResponse) {
           await login(codeResponse);
           router.push("/finance");

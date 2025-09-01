@@ -7,7 +7,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { TypingAnimation } from "@/components/magicui/typing-animation"
 import GoogleSignInButton from "@/components/landing/google-signin-button"
 import useAuthStore from "@/store/useAuthstore"
-import { useRouter } from "next/navigation"
 import GotoDashboard from "./gotodashboard"
 
 
